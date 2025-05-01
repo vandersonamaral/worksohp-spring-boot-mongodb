@@ -1,6 +1,7 @@
 package com.amaraldev.workshopmongo.services;
 
 import com.amaraldev.workshopmongo.domain.User;
+import com.amaraldev.workshopmongo.dto.UserDTO;
 import com.amaraldev.workshopmongo.repository.UserRepository;
 import com.amaraldev.workshopmongo.services.exception.ObjectNotFoundExeception;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,5 +23,12 @@ public class UserService {
     public User findById(String id) {
         Optional<User> obj = userRepository.findById(id);
         return obj.orElseThrow(()->new ObjectNotFoundExeception("Objeto nao encontrado"));
+    }
+
+    public User insert(User user) {
+        return userRepository.insert(user);
+    }
+    public User fromDto(UserDTO userDTO){
+        return new User(userDTO.getId(), userDTO.getName(), userDTO.getEmail());
     }
 }
